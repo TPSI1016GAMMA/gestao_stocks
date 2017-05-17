@@ -1,14 +1,15 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Request extends Transaction {
 	
 	private Warehouse warehouse;
-	private Products products;
+	private ArrayList<Products> products=new ArrayList<>();
 	
 	public Request(int id, Funcionario funcionario, LocalDate date, Estado estado, Warehouse warehouse,
-			Products products) {
+			ArrayList<Products> products) {
 		super(id, funcionario, date, estado);
 		this.warehouse = warehouse;
 		this.products = products;
@@ -22,11 +23,11 @@ public class Request extends Transaction {
 		this.warehouse = warehouse;
 	}
 
-	public Products getProducts() {
+	public ArrayList<Products> getProducts() {
 		return products;
 	}
 
-	public void setProducts(Products products) {
+	public void setProducts(ArrayList<Products> products) {
 		this.products = products;
 	}
 	

@@ -1,14 +1,16 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Warehouse {
 	
 	private int id;
 	private String name;
 	private Funcionario responsavel;
 	private Estado estado;
-	private Products inventory;
+	private ArrayList<Products> inventory=new ArrayList<>();
 	
-	public Warehouse(int id, String name, Funcionario responsavel, Estado estado, Products inventory) {
+	public Warehouse(int id, String name, Funcionario responsavel, Estado estado, ArrayList<Products> inventory) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -49,11 +51,11 @@ public class Warehouse {
 		this.estado = estado;
 	}
 
-	public Products getInventory() {
+	public ArrayList<Products> getInventory() {
 		return inventory;
 	}
 
-	public void setInventory(Products inventory) {
+	public void setInventory(ArrayList<Products> inventory) {
 		this.inventory = inventory;
 	}
 	

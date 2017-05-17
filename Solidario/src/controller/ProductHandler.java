@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Estado;
 import model.Product;
 
 /**
@@ -47,8 +48,8 @@ public class ProductHandler extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		//Product p = new Product(products.size(), request.getParameter("nome"));
-		//products.add(p);
+		Product p = new Product(request.getParameter("nome"), null, Estado.activo, null, Double.parseDouble(request.getParameter("stockMinimo")));
+		products.add(p);
 		doGet(request, response);
 	}
 

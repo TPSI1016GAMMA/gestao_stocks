@@ -6,7 +6,8 @@ public class Products {
 	
 	private Product product;
 	private double qtd;
-	private LocalDate date;
+	private LocalDate date;	
+	
 	
 	public Products(Product product, double qtd, LocalDate date) {
 		super();
