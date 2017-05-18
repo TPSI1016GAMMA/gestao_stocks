@@ -15,5 +15,8 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/Users/MissyM/Downloads/barcode4j-2.1.0-bin/barcode4j-2.1.0/build/barcode4j.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="C:/Users/MissyM/Downloads/some-jdbc-drivers.rar"/>
+	<classpathentry kind="lib" path="C:/Users/MissyM/Downloads/Microsoft JDBC Driver 6.0 for SQL Server/sqljdbc_6.0/enu/jre8/sqljdbc42.jar"/>
+	<classpathentry kind="lib" path="C:/Users/MissyM/Downloads/Microsoft JDBC Driver 6.0 for SQL Server/sqljdbc_6.0/enu/jre7/sqljdbc41.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

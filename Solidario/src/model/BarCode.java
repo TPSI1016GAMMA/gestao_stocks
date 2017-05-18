@@ -13,18 +13,18 @@ import org.krysalis.barcode4j.tools.UnitConv;
 public class BarCode {
 	
 	
-	public BarCode(String nome_produto, String cat_produto) throws IOException{
+	public BarCode(Product p) throws IOException{
 	
 	Code39Bean bean = new Code39Bean();
     final int dpi = 150; 
     //-----------Caminho Geral-----------
-    String path="files/cod_barra/"+cat_produto+"/";
+    String path="files/cod_barra/"+p.getSubCat().getParentCat()+"/"+p.getSubCat().getName();
     
     bean.setModuleWidth(UnitConv.in2mm(1.0f / dpi)); 
     bean.setWideFactor(3);
     bean.doQuietZone(false);
 
-    File outputFile = new File(path+nome_produto+".png");
+    File outputFile = new File(path+p.nome_produto+".png");
     
     outputFile.getParentFile().mkdirs(); //----Cria as pastas
     OutputStream codigo_barras = new FileOutputStream(outputFile);
@@ -32,7 +32,7 @@ public class BarCode {
 try {
     BitmapCanvasProvider canvas = new BitmapCanvasProvider(codigo_barras, "image/x-png", dpi, BufferedImage.TYPE_BYTE_BINARY, false, 0);
 
-    bean.generateBarcode(canvas, nome_produto);
+    bean.generateBarcode(canvas, p.getNome()+(BD)p.getId);
 
     canvas.finish();
     

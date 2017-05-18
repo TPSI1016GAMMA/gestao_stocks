@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Estado;
+import model.State;
+import service.ServiceBD;
+import model.BD;
 import model.Product;
 
 /**
@@ -48,9 +51,27 @@ public class ProductHandler extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		Product p = new Product(request.getParameter("nome"), null, Estado.activo, null, Double.parseDouble(request.getParameter("stockMinimo")));
-		products.add(p);
+		BD p = new Product(request.getParameter("nome"), null, State.activo, null, 2);
+		products.add((Product) p);
 		doGet(request, response);
+		
+		ServiceBD bd=new ServiceBD();
+		try {
+			bd.insert((Product)p, "insert");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

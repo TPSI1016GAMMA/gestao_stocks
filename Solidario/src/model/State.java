@@ -1,6 +1,6 @@
 package model;
 
-public enum Estado {
+public enum State {
 	
 	fornecido, parcFornecido, pendente, fechado, anulado, activo, inactivo
 

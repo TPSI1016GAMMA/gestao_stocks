@@ -6,16 +6,16 @@ public class Warehouse {
 	
 	private int id;
 	private String name;
-	private Funcionario responsavel;
-	private Estado estado;
+	private Employee responsavel;
+	private State state;
 	private ArrayList<Products> inventory=new ArrayList<>();
 	
-	public Warehouse(int id, String name, Funcionario responsavel, Estado estado, ArrayList<Products> inventory) {
+	public Warehouse(int id, String name, Employee responsavel, State state, ArrayList<Products> inventory) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.responsavel = responsavel;
-		this.estado = estado;
+		this.state = state;
 		this.inventory = inventory;
 	}
 
@@ -35,20 +35,20 @@ public class Warehouse {
 		this.name = name;
 	}
 
-	public Funcionario getResponsavel() {
+	public Employee getResponsavel() {
 		return responsavel;
 	}
 
-	public void setResponsavel(Funcionario responsavel) {
+	public void setResponsavel(Employee responsavel) {
 		this.responsavel = responsavel;
 	}
 
-	public Estado getEstado() {
-		return estado;
+	public State getEstado() {
+		return state;
 	}
 
-	public void setEstado(Estado estado) {
-		this.estado = estado;
+	public void setEstado(State state) {
+		this.state = state;
 	}
 
 	public ArrayList<Products> getInventory() {

@@ -8,9 +8,9 @@ public class Request extends Transaction {
 	private Warehouse warehouse;
 	private ArrayList<Products> products=new ArrayList<>();
 	
-	public Request(int id, Funcionario funcionario, LocalDate date, Estado estado, Warehouse warehouse,
+	public Request(int id, Employee employee, LocalDate date, State state, Warehouse warehouse,
 			ArrayList<Products> products) {
-		super(id, funcionario, date, estado);
+		super(id, employee, date, state);
 		this.warehouse = warehouse;
 		this.products = products;
 	}

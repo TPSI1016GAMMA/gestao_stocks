@@ -5,16 +5,16 @@ import java.time.LocalDate;
 public abstract class Transaction {
 	
 	private int id;
-	private Funcionario funcionario;
+	private Employee employee;
 	private LocalDate date;
-	private Estado estado;
+	private State state;
 	
-	public Transaction(int id, Funcionario funcionario, LocalDate date, Estado estado) {
+	public Transaction(int id, Employee employee, LocalDate date, State state) {
 		super();
 		this.id = id;
-		this.funcionario = funcionario;
+		this.employee = employee;
 		this.date = date;
-		this.estado = estado;
+		this.state = state;
 	}
 
 	public int getId() {
@@ -25,12 +25,12 @@ public abstract class Transaction {
 		this.id = id;
 	}
 
-	public Funcionario getFuncionario() {
-		return funcionario;
+	public Employee getFuncionario() {
+		return employee;
 	}
 
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
+	public void setFuncionario(Employee employee) {
+		this.employee = employee;
 	}
 
 	public LocalDate getDate() {
@@ -41,12 +41,12 @@ public abstract class Transaction {
 		this.date = date;
 	}
 
-	public Estado getEstado() {
-		return estado;
+	public State getEstado() {
+		return state;
 	}
 
-	public void setEstado(Estado estado) {
-		this.estado = estado;
+	public void setEstado(State state) {
+		this.state = state;
 	}
 	
 	

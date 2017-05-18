@@ -50,6 +50,7 @@
 				out.append("<tr><td> " + p.getNome() + "</td></tr>");
 
 			}
+			
 		%>
 	</table>
     </body>

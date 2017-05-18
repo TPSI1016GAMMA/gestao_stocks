@@ -8,8 +8,8 @@ public class Supply extends Transaction{
 	private Request request;
 	private ArrayList<Products> products=new ArrayList<>();
 	
-	public Supply(int id, Funcionario funcionario, LocalDate date, Estado estado, Request request, ArrayList<Products> products) {
-		super(id, funcionario, date, estado);
+	public Supply(int id, Employee employee, LocalDate date, State state, Request request, ArrayList<Products> products) {
+		super(id, employee, date, state);
 		this.request = request;
 		this.products = products;
 	}

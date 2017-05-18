@@ -1,6 +1,8 @@
 package service;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
@@ -8,58 +10,65 @@ import java.util.List;
 
 public class ServiceBD {
 	
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	static final String DB_URL = "jdbc:mysql://localhost/gestaodestocks";
+	static final String HOST = "jdbc:sqlserver://localhost:1433;databaseName=gestaodestocks";
 	
 	static final String USER = "sa";
 	static final String PASS = "qwerty";
 	
 	public Connection connection() throws ClassNotFoundException, SQLException {	
 		
-		Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		
-		Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		Connection conn = DriverManager.getConnection(HOST,USER,PASS);
 		
 		return conn;}
 	
-	public void insert(Object object) throws ClassNotFoundException, SQLException{	
+	public void insert(Object object, String s) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{	
 		
-		String sql=null;		
-		List<Field> fields=null;
+		String sql="";		
 		
-		sql+="INSERT INTO " + object.getClass().toString() + " VALUES (";
 		
-		for(Field field : getFields(fields, object.getClass())) {
-			 if(field.toString()!="id") sql+="'"+field.toString() + "'," ;			
-		}
 		
-		sql = sql.substring(-1);
-		sql+=");";
+		try {
+	         Method method = object.getClass().getMethod(s);
+		
+			 sql=(String)method.invoke(object);
+			  
+			} 
+			 catch (SecurityException e) {e.getCause().printStackTrace(); }
+		     catch (NoSuchMethodException e) {e.getCause().printStackTrace(); }
+		     catch (IllegalArgumentException e) {e.getCause().printStackTrace();}
+			 catch (IllegalAccessException e) { e.getCause().printStackTrace(); }
+			 catch (InvocationTargetException e) {e.getCause().printStackTrace(); }
+		
+		System.out.println(sql);
+		
 		connection().createStatement().executeUpdate(sql);
 		
 	}
 	
-	public void select(Object object) throws ClassNotFoundException, SQLException{	
+	public void selectAll(Object object) throws ClassNotFoundException, SQLException{	
 		
-		String sql=null;		
-		List<Field> fields=null;
+		String sql="SELECT * FROM "+object.getClass() ;	
 		
-		for(Field field : getFields(fields, object.getClass())) {
-			 if(field.toString()!="id") sql+="'"+field.toString() + "'," ;			
+		ResultSet rs = connection().createStatement().executeQuery(sql);
+		
+		while(rs.next()){
+			
 		}
-		
-		sql = sql.substring(-1);
-		sql+=");";
-		connection().createStatement().executeUpdate(sql);
 		
 	}
 	
 		
-	public static List<Field> getFields(List<Field> fields, Class<?> type) {
-	    fields.addAll(Arrays.asList(type.getDeclaredFields()));
+	public static List<Field> getFields(List<Field> fields, Object object) {
+		Class d= object.getClass();
+		Field[] f=d.getDeclaredFields();
+		fields.addAll(Arrays.asList(f));
+	  
 
-	    if (type.getSuperclass() != null) {
-	        getFields(fields, type.getSuperclass());
+	    if (d.getSuperclass().getName() != "java.lang.Object") {
+	    	 System.out.println("Superclass = "+ d.getSuperclass().getName().toString());
+	        //getFields(fields, d.getSuperclass());
 	    }
 
 	    return fields;
