@@ -1,17 +1,24 @@
 package model;
 
-public class Employee{
+public class Employee extends BD{
 	
-	private int id;
-	private String name;
-	private Employee_role role;
-	private String pass;
+	//protect int id;
+	protected String name;
+	//private Employee_role role;
+	//private String pass;
 	
 	public Employee(int id, String name, Employee_role role) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.role = role;
+		//this.role = role;
+	}
+	
+	public Employee(String name) {
+		super();
+		//this.id = id;
+		this.name = name;
+		//this.role = role;
 	}
 
 	public int getId() {
@@ -30,7 +37,7 @@ public class Employee{
 		this.name = name;
 	}
 
-	public Employee_role getRole() {
+	/*public Employee_role getRole() {
 		return role;
 	}
 
@@ -44,7 +51,7 @@ public class Employee{
 
 	public void setPass(String pass) {
 		this.pass = pass;
-	}
+	}*/
 	
 	
 	

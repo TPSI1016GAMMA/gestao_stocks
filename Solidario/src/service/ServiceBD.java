@@ -10,8 +10,7 @@ import java.util.List;
 
 public class ServiceBD {
 	
-	static final String HOST = "jdbc:sqlserver://localhost:1433;databaseName=gestaodestocks";
-	
+	static final String HOST = "jdbc:sqlserver://localhost:1433;databaseName=gestaodestocks";	
 	static final String USER = "sa";
 	static final String PASS = "qwerty";
 	
@@ -45,19 +44,12 @@ public class ServiceBD {
 		
 		connection().createStatement().executeUpdate(sql);
 		
+		
 	}
 	
-	public void selectAll(Object object) throws ClassNotFoundException, SQLException{	
+
 		
-		String sql="SELECT * FROM "+object.getClass() ;	
-		
-		ResultSet rs = connection().createStatement().executeQuery(sql);
-		
-		while(rs.next()){
-			
-		}
-		
-	}
+	
 	
 		
 	public static List<Field> getFields(List<Field> fields, Object object) {

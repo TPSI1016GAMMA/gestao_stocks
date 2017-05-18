@@ -24,7 +24,7 @@ public class BarCode {
     bean.setWideFactor(3);
     bean.doQuietZone(false);
 
-    File outputFile = new File(path+p.nome_produto+".png");
+    File outputFile = new File(path+p.nome+".png");
     
     outputFile.getParentFile().mkdirs(); //----Cria as pastas
     OutputStream codigo_barras = new FileOutputStream(outputFile);
@@ -32,7 +32,7 @@ public class BarCode {
 try {
     BitmapCanvasProvider canvas = new BitmapCanvasProvider(codigo_barras, "image/x-png", dpi, BufferedImage.TYPE_BYTE_BINARY, false, 0);
 
-    bean.generateBarcode(canvas, p.getNome()+(BD)p.getId);
+    bean.generateBarcode(canvas, p.getNome());
 
     canvas.finish();
     
