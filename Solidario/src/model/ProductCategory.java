@@ -1,8 +1,8 @@
 package model;
 
-public class ProductCategory {
+public class ProductCategory extends BD {
 	
-	private int id;
+	//private int id;
 	private String name;
 	private ProductCategory parentCat;
 	

@@ -39,27 +39,13 @@
                 
           
                 $('div.dataTables_filter input').addClass('form-control ');
-                
-                $('.edit').click(function() {
-                	var id = $(this).attr('value');
-                	$('#method').val("edit");
-                	$('#txtName').val($('.line' + id + ' td.colName>a').html());
-                	$("#ddlResp option").each(function() {
-                			    if ($('.line' + id + ' td.colResp').html() == $(this).text()) {
-                			    	$("#ddlResp").val($(this).val());
-                			    }
-                	});
-                	$('.rbState').filter('[value=' + $('.colState').attr('id') + ']').prop('checked', true);
-                });
-                
-                $('.delete').click(function() {
-                	window.location.replace('WarehouseHandler?delete=' + $(this).attr('value'));
-                });
             });
+
      
         </script>
     <!-- CSS -Todo Separar ficheiro -->    
         <style type="text/css">
+
  		#teste_filter label{
         
         float:left;
@@ -71,10 +57,12 @@
         
         }
         
+
         #teste_paginate{
         
         text-align: center;
         
+
         
         
         }
@@ -145,21 +133,15 @@
 			
 			
 			<%
-			ArrayList<Warehouse> warehouse = (ArrayList<Warehouse>) request.getAttribute("warehouse");
+			ArrayList warehouse = (ArrayList) request.getAttribute("warehouse");
 			for (int i = 0; i < warehouse.size(); i++) {
 				Warehouse p = (Warehouse) warehouse.get(i);
-				out.append("<tr class='line"+p.getId()+"'>");
-				out.append("<td class='coldID'> " + p.getId() + "</td>");
-				out.append("<td class='colName'><a href='ProductHandler?list=" + p.getId() + "'" + p.getName() + "</a></td>");
-				out.append("<td class='colResp'> " + p.getResponsavel().getName() + "</td>");
-				out.append("<td class='colState' id='" + (p.getEstado().equals("Activo")?1:2) + "'> " + p.getEstado() + "</td>");
-				out.append("<td><button type=\"submit\" class=\"btn btn-danger delete\" id=\"btn_delete\" value=\""+ p.getId()+"\">Apagar</button>");
-				out.append("<button type=\"submit\" class=\"btn btn-success edit\" id=\"btn_edit\" value=\""+ p.getId()+"\">Editar</button></td></tr>");
+				out.append("<tr><td> " + p.getId() + "</td><td> " + p.getName() + "</td><td> " + p.getResponsavel().getName() + "</td><td> " + p.getEstado() + "</td><td><button type=\"submit\" class=\"btn btn-danger\" id=\"btn_delete\" value=\""+ p.getId()+"\">Apagar</button><button type=\"submit\" class=\"btn btn-success\" id=\"btn_edit\" value=\""+ p.getId()+"\">Editar</button></td></tr>");
+
 			}
 			
-			
 		%>
-			<tr class="line0"><td class="colID">0</td><td class="colName"><a href='ProductHandler?list=0'>Armazem1</a></td><td class="colResp">Pessoa2</td><td class="colState" id="1">Activo</td><td><button type="submit" class="btn btn-danger delete" id="btn_delete" value="0">Apagar</button><button type="submit" class="btn btn-success edit" data-toggle="modal" data-target="#menuWarehouse" id="btn_edit" value="0">Editar</button></td></tr>
+			
 		</tbody>		
 		
 		</table>
@@ -183,34 +165,38 @@
         <div class="modal-body" id="warehouse_body">
 			  
 			  	<form method="post" action="WarehouseHandler">
-			  		<input type="hidden" name="method" id="method" value="insert"/>
-					<input class="form-control" type="text" id="txtName" name="tf_whname" placeholder="Nome do Armazem">
-					<br>
 			
-					<select name="s_id_employee" id="ddlResp" class="form-control">
-	
-					<% 
-					
-					ArrayList<Employee> employee = (ArrayList<Employee>) request.getAttribute("employee");
-					for (int i = 0; i < employee.size(); i++) {
-						Employee p = (Employee) employee.get(i);
-						out.append("<option value=\""+p.getId()+ "\">"+p.getName() +"</option>");
-					}
-					
-					%>
-						<option value="0">Pessoa1</option>
-						<option value="1">Pessoa2</option>
-					</select>
-					<br>
-					
-					<input type="radio" class="rbState" name="state" value="1">Activo<br>
-	 				<input type="radio" class="rbState" name="state" value="2">Inactivo<br>		
-					<input type="submit" class="btn btn-primary" value="Inserir Armazem"  name="Inserir Armazem">
-    			</form>
+				
+				<input class="form-control" type="text" name="tf_whname" placeholder="Nome do Armazem">
+				<br>
+		
+				<select name="s_id_employee" class="form-control">
+
+				<% 
+				
+				ArrayList employee = (ArrayList) request.getAttribute("employee");
+				for (int i = 0; i < employee.size(); i++) {
+					Employee p = (Employee) employee.get(i);
+					out.append("<option value=\""+p.getId()+ "\">"+p.getName() +"</option>");
+
+				}
+				
+				%>
+
+				</select>
+				<br>
+				
+				<input type="radio" name="state" value="1"> Activo<br>
+ 				<input type="radio" name="state" value="2"> Inactivo<br>		
+			
+    
      	</div><!--  Body -->
       	
       	<div class="modal-footer">
-  
+    
+    	<input type="submit" class="btn btn-primary" value="Inserir Armazem"  name="Inserir Armazem">		
+		</form>
+    
        </div><!-- footer -->
 
 

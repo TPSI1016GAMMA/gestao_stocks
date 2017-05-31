@@ -1,6 +1,6 @@
 package model;
 
-public class Employee_role {
+public class Employee_role extends BD {
 	
 	private int id;
 	private String role;

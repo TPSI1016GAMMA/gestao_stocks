@@ -28,6 +28,10 @@ public class Product extends BD {
 			this.barcode = null;
 			this.stock_minimo = 0;
 		}
+	    
+	    public Product() {
+			super();		
+		}
 
 		public int getId() {
 			return id;

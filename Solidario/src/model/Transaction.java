@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
-public abstract class Transaction {
+public abstract class Transaction extends BD {
 	
 	private int id;
 	private Employee employee;

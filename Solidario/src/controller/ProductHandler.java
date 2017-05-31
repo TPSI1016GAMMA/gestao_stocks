@@ -51,13 +51,13 @@ public class ProductHandler extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		BD p = new Product(request.getParameter("nome"), null, State.activo, null, 2);
+		BD p = new Product(request.getParameter("nome"), null, State.activo, null, Integer.parseInt(request.getParameter("stock")));
 		products.add((Product) p);
 		doGet(request, response);
 		
 		ServiceBD bd=new ServiceBD();
 		try {
-			bd.insert((Product)p, "insert");
+			bd.cud((Product)p, "insert");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

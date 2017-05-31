@@ -25,6 +25,8 @@
 
 			<input type="text" placeholder="Nome" class="form-control"
 				aria-describedby="sizing-addon1" name="nome">
+				<input type="text" placeholder="stock" class="form-control"
+				aria-describedby="sizing-addon1" name="stock">
 		</div>
 
 	

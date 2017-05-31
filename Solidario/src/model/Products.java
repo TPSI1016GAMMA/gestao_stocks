@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
-public class Products {
+public class Products extends BD {
 	
 	private Product product;
 	private double qtd;

@@ -2,9 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
-public class Warehouse {
+public class Warehouse extends BD {
 	
-	private int id;
+	//private int id;
 	private String name;
 	private Employee responsavel;
 	private State state;

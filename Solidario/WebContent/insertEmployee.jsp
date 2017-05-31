@@ -48,7 +48,6 @@
 			for (int i = 0; i < employees.size(); i++) {
 				Employee e = (Employee) employees.get(i);
 				out.append("<tr><td> " + e.getName() + "</td></tr>");
-
 			}
 			
 		%>

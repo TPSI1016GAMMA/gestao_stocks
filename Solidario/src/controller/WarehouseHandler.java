@@ -14,12 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.BD;
 import model.Employee;
 import model.Product;
 import model.State;
 import model.Warehouse;
-import service.ServiceBD;
 
 /**
  * Servlet implementation class WarehouseHandler
@@ -33,95 +31,107 @@ public class WarehouseHandler extends HttpServlet {
 	
     public WarehouseHandler() {
         super();
-        ServiceBD bd=new ServiceBD();
-        warehouse=new ArrayList<Warehouse>();
-        employee=new ArrayList<Employee>();
+        warehouse=new ArrayList();
+        employee=new ArrayList();
     }
 
-    private Warehouse getWarehouseByID(int id) {
-    	for (Warehouse w:this.warehouse) {
-    		if (w.getId()==id) {
-    			return w;
-    		}
-    	}
-    	return null;
-    }
-    
-    public Employee getEmployeeByName(String name) {
-    	for (Employee e:employee) {
-    		if (e.getName().equals(name)) {
-    			return e;
-    		}
-    	}
-    	return null;
-    }
-    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		//warehouse = bd.selectAll();
-		ServiceBD bd=new ServiceBD();
-		if (request.getParameter("delete")!=null) {
-			int idToDelete = Integer.valueOf(request.getParameter("delete"));
-			BD wh = getWarehouseByID(idToDelete);
-			if (wh!=null) {
-				try {
-					bd.delete((Warehouse)wh, "insert");
-				} catch (ClassNotFoundException ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
-				} catch (SQLException ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
-				} catch (InstantiationException ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
-				} catch (IllegalAccessException ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
-				}
+			try {
+			
+			String host = "jdbc:sqlserver://localhost:1433;databaseName=gestaodestocks";
+			String uName="sa";
+			String uPass="qwerty";
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");	
+			Connection con = DriverManager.getConnection(host, uName, uPass);
+			Statement sta = con.createStatement();
+			
+			
+			String Sql="select id_warehouse, name_warehouse, name_employee, name_state from warehouse left join employee on warehouse.id_employee =employee.id_employee left join state on warehouse.id_state = state.id_state; ";
+			
+			ResultSet rs = sta.executeQuery(Sql);
+			while (rs.next()) {
+				Warehouse __temp= new Warehouse(rs.getInt("id_warehouse"),rs.getString("name_warehouse"),new Employee(rs.getString("name_employee")),State.activo,new ArrayList());
+				warehouse.add(__temp);
+				
 			}
-			warehouse.remove(wh);
+			Sql ="select * from Employee";
+			rs= sta.executeQuery(Sql);
+			
+			while (rs.next()) {
+				Employee _temp= new Employee(rs.getInt("id_employee"),rs.getString("name_employee"));
+				employee.add(_temp);
+				
+			}
+			
+			
+			if(con !=null){
+				
+				//Quando a ligaçao e positiva
+				
+				
+			}
+		} catch (SQLException e) {
+			
+			
+			e.printStackTrace();
+			
+		} catch (ClassNotFoundException e) {
+			
+			
+			e.printStackTrace();
+			
 		}
 		
 		request.setAttribute("warehouse", warehouse);
 		request.setAttribute("employee", employee);
 		request.getRequestDispatcher("list_warehouse.jsp").forward(request, response);
-		
 	}
-	
-		
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("method")!=null) {
-				BD w = new Warehouse(-1, request.getParameter("name"), getEmployeeByName(request.getParameter("s_id_employee")), Integer.valueOf(request.getParameter("state"))==1?State.activo:State.inactivo, null);
-				warehouse.add((Warehouse) w);
+		
+	
+try {
+			
+			String host = "jdbc:sqlserver://localhost:1433;databaseName=gestaodestocks";
+			String uName="sa";
+			String uPass="qwerty";
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");	
+			Connection con = DriverManager.getConnection(host, uName, uPass);
+			Statement sta = con.createStatement();
+			
+			
+			String Sql="insert into warehouse(name_warehouse, id_employee, id_state) values ( \' " +request.getParameter("tf_whname")+ " \'," +Integer.parseInt(request.getParameter("s_id_employee")) +","+Integer.parseInt(request.getParameter("state"))+ ") ";
+			
+			ResultSet rs = sta.executeQuery(Sql);
+
+			
+			
+			if(con !=null){
 				
-				ServiceBD bd=new ServiceBD();
-				try {
-						bd.cud((Warehouse)w, request.getParameter("method"));
-				} catch (ClassNotFoundException ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
-				} catch (SQLException ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
-				} catch (InstantiationException ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
-				} catch (IllegalAccessException ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
-				}
-			} else {
-				//edit
+				//Quando a ligaçao e positiva
+				
+				
 			}
+		} catch (SQLException e) {
+			
+			
+			e.printStackTrace();
+			
+		} catch (ClassNotFoundException e) {
+			
+			
+			e.printStackTrace();
+			
+		}
+		
 		doGet(request, response);
 	}
+
 }

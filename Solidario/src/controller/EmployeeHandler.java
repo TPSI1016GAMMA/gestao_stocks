@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.BD;
 import model.Employee;
-import model.Product;
 import service.ServiceBD;
 
 /**
@@ -52,7 +52,7 @@ public class EmployeeHandler extends HttpServlet {
 		
 		ServiceBD bd=new ServiceBD();
 		try {
-			bd.insert((Employee)e, "insert");
+			bd.cud((Employee)e, "insert");
 		} catch (ClassNotFoundException ex) {
 			// TODO Auto-generated catch block
 			ex.printStackTrace();
@@ -65,8 +65,10 @@ public class EmployeeHandler extends HttpServlet {
 		} catch (IllegalAccessException ex) {
 			// TODO Auto-generated catch block
 			ex.printStackTrace();
+		} catch (IllegalArgumentException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		
 	}
 
 }
